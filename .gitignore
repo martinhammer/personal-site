@@ -1,0 +1,8 @@
+public/
+
+processed_images/
+
+.deploy-target
+
+*.WordPress.*.xml
+wp-import-report.txt

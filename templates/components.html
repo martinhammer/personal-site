@@ -1,0 +1,21 @@
+{# Small reusable pieces, used by several templates.
+   Call them like {{<post_item post={post} />}}. #}
+
+{# One line in a list of posts: date and title. #}
+{% component post_item(post) %}
+  <li class="post-item">
+    <time datetime="{{ post.date }}">{{ post.date | date(format="%-d %b %Y") }}</time>
+    <a href="{{ post.permalink }}">{{ post.title }}</a>
+  </li>
+{% endcomponent post_item %}
+
+{# "Newer / Older" links under a paginated list. #}
+{% component pager(paginator) %}
+  {% if paginator.number_pagers > 1 %}
+  <nav class="pager">
+    {% if paginator.previous %}<a href="{{ paginator.previous }}">← Newer</a>{% else %}<span></span>{% endif %}
+    <span>Page {{ paginator.current_index }} of {{ paginator.number_pagers }}</span>
+    {% if paginator.next %}<a href="{{ paginator.next }}">Older →</a>{% else %}<span></span>{% endif %}
+  </nav>
+  {% endif %}
+{% endcomponent pager %}

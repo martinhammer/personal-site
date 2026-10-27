@@ -1,0 +1,42 @@
+# The address your site will live at. Used to build absolute links.
+base_url = "https://martinthetallguy.com"
+title = "mtg"
+author = "Martin Hammer"
+description = "Personal website and blog."
+
+compile_sass = false
+build_search_index = false
+
+# An Atom feed for the blog at /atom.xml, so people can follow it in a feed reader.
+generate_feeds = true
+feed_filenames = ["atom.xml"]
+
+# Tags: every tag gets a page listing its posts at /tags/<tag>/,
+# and /tags/ lists all tags.
+taxonomies = [
+  { name = "tags", paginate_by = 20 },
+]
+
+[markdown]
+# Turns "quotes" into “quotes”, -- into –, and so on.
+smart_punctuation = true
+
+[markdown.highlighting]
+light_theme = "github-light"
+dark_theme = "github-dark"
+
+[extra]
+# The navigation menu. content/contact.md becomes /contact/, and so on.
+menu = [
+  { name = "Home",    url = "/" },
+  { name = "Blog",    url = "/blog/" },
+  { name = "Contact", url = "/contact/" },
+]
+
+# Optional icon links next to your name. "icon" is a file in static/icons/
+# (without .svg). Example:
+#   { name = "GitHub", icon = "github", url = "https://github.com/your-name" },
+links = []
+
+# How many recent posts to show on the home page (0 to hide the list).
+home_recent_posts = 5

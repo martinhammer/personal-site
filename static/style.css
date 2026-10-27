@@ -1,0 +1,134 @@
+/* Everything in static/ is copied to the site as-is. */
+
+:root {
+  --text: #1f2328;
+  --muted: #656d76;
+  --bg: #ffffff;
+  --accent: #0b5cad;
+  --line: #e4e7eb;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #e6e6e6;
+    --muted: #9aa3ad;
+    --bg: #15181c;
+    --accent: #6cb4ff;
+    --line: #2b3036;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0 auto;
+  max-width: 42rem;
+  padding: 0 1rem;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+}
+
+header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem 1.5rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.site-name {
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.brand { display: flex; align-items: center; gap: 0.75rem; }
+.icon-link { display: inline-flex; color: var(--muted); }
+.icon-link:hover { color: var(--accent); }
+.icon-link svg { width: 1.1rem; height: 1.1rem; fill: currentColor; }
+.icon-link svg title { display: none; }
+
+nav { display: flex; flex-wrap: wrap; gap: 1rem; }
+nav a { color: var(--muted); text-decoration: none; }
+nav a:hover, nav a[aria-current="page"] { color: var(--accent); }
+
+main { padding: 1.5rem 0 3rem; }
+
+a { color: var(--accent); }
+h1, h2, h3 { line-height: 1.25; }
+img { max-width: 100%; height: auto; }
+code { font-size: 0.9em; }
+
+footer {
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* More space above a heading that follows text */
+:is(p, ul, ol, pre, blockquote, figure) + :is(h2, h3) { margin-top: 2.25em; }
+
+.muted { color: var(--muted); }
+
+/* Lists of posts: blog page, tag pages, home page */
+.post-list { list-style: none; padding: 0; }
+.post-item { display: flex; gap: 1rem; padding: 0.3rem 0; }
+.post-item time {
+  flex: 0 0 7.5rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+@media (max-width: 30rem) {
+  .post-item { flex-direction: column; gap: 0; padding: 0.5rem 0; }
+  .post-item time { flex: none; font-size: 0.9rem; }
+}
+
+/* A single post */
+.post-meta { margin-top: -0.5rem; color: var(--muted); }
+
+.tags, .tag-cloud {
+  display: flex; flex-wrap: wrap; gap: 0.5rem;
+  list-style: none; padding: 0; margin: 2rem 0 0;
+}
+.tags a, .tag-cloud a {
+  display: inline-block;
+  padding: 0.1rem 0.6rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+.tag-cloud li { display: flex; align-items: center; gap: 0.3rem; }
+
+.pager {
+  display: flex; justify-content: space-between; gap: 1rem;
+  margin-top: 2.5rem; padding-top: 1rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.95rem;
+}
+
+/* Imported WordPress content */
+figure { margin: 1.5rem 0; }
+figcaption { color: var(--muted); font-size: 0.9rem; margin-top: 0.4rem; }
+blockquote { margin: 1.5rem 0; padding-left: 1rem; border-left: 3px solid var(--line); color: var(--muted); }
+pre { overflow-x: auto; padding: 0.8rem 1rem; border: 1px solid var(--line); border-radius: 6px; }
+table { border-collapse: collapse; width: 100%; }
+th, td { border-bottom: 1px solid var(--line); padding: 0.4rem 0.5rem; text-align: left; }
+
+/* Image enlarge-on-click */
+main img { cursor: zoom-in; }
+#lightbox { padding: 0; border: 0; outline: none; background: none; max-width: 95vw; max-height: 95vh; }
+#lightbox::backdrop { background: rgb(0 0 0 / 0.8); }
+#lightbox img { display: block; max-width: 95vw; max-height: 95vh; cursor: zoom-out; }
+
+/* Syntax highlighting (Zola's built-in highlighter, configured in zola.toml).
+   Its colours follow the visitor's light/dark setting by themselves. */
+pre.giallo { line-height: 1.45; }
+.giallo-l { display: inline-block; min-height: 1lh; width: 100%; }
+.giallo-ln { display: inline-block; user-select: none; margin-right: 0.4em; padding: 0.4em; min-width: 3ch; text-align: right; opacity: 0.8; }

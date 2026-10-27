@@ -1,0 +1,15 @@
+{# /tags/<tag>/: the posts with one tag. #}
+{% extends "base.html" %}
+
+{% block title %}{{ term.name }} · {{ config.title }}{% endblock %}
+
+{% block content %}
+  <h1>Posts tagged “{{ term.name }}”</h1>
+  <ul class="post-list">
+    {% for post in paginator.pages %}
+      {{<post_item post={post} />}}
+    {% endfor %}
+  </ul>
+  {{<pager paginator={paginator} />}}
+  <p class="muted"><a href="{{ get_url(path='/tags/') }}">All tags</a> · <a href="{{ get_url(path='/blog/') }}">All posts</a></p>
+{% endblock %}

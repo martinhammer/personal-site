@@ -1,0 +1,35 @@
+{# A single blog post. Chosen for every file in content/blog/ by
+   `page_template = "post.html"` in content/blog/_index.md. #}
+{% extends "base.html" %}
+
+{% block title %}{{ page.title }} · {{ config.title }}{% endblock %}
+{% block description %}{{ page.description or config.description }}{% endblock %}
+
+{% block content %}
+  <article>
+    <h1>{{ page.title }}</h1>
+    <p class="post-meta">
+      <time datetime="{{ page.date }}">{{ page.date | date(format="%-d %B %Y") }}</time>
+      {% if page.draft %}<strong>· Draft</strong>{% endif %}
+    </p>
+
+    {{ page.content | safe }}
+
+    {% if page.taxonomies.tags %}
+    <ul class="tags">
+      {% for tag in page.taxonomies.tags %}
+      <li><a href="{{ get_taxonomy_url(kind='tags', term=tag) }}">{{ tag }}</a></li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </article>
+
+  {# Links to the neighbouring posts. With date sorting, Zola's "lower" is the
+     newer post and "higher" the older one. Newer on the left, like the blog pager. #}
+  {% if page.lower or page.higher %}
+  <nav class="pager">
+    {% if page.lower %}<a href="{{ page.lower.permalink }}">← {{ page.lower.title }}</a>{% else %}<span></span>{% endif %}
+    {% if page.higher %}<a href="{{ page.higher.permalink }}">{{ page.higher.title }} →</a>{% else %}<span></span>{% endif %}
+  </nav>
+  {% endif %}
+{% endblock %}

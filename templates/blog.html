@@ -1,0 +1,20 @@
+{# The blog's front page, /blog/: all posts, newest first, a page at a time.
+   Chosen by `template = "blog.html"` in content/blog/_index.md. #}
+{% extends "base.html" %}
+
+{% block title %}{{ section.title }} · {{ config.title }}{% endblock %}
+
+{% block content %}
+  <h1>{{ section.title }}</h1>
+  {{ section.content | safe }}
+
+  <ul class="post-list">
+    {% for post in paginator.pages %}
+      {{<post_item post={post} />}}
+    {% endfor %}
+  </ul>
+
+  {{<pager paginator={paginator} />}}
+
+  <p class="muted"><a href="{{ get_url(path='/tags/') }}">Browse by tag</a></p>
+{% endblock %}

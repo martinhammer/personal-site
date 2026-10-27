@@ -1,0 +1,20 @@
+{# The home page: content/_index.md, followed by a few recent posts. #}
+{% extends "base.html" %}
+
+{% block content %}
+  {{ section.content | safe }}
+
+  {% set count = config.extra.home_recent_posts or 0 %}
+  {% if count > 0 %}
+    {% set blog = get_section(path="blog/_index.md") %}
+    {% if blog.pages %}
+    <h2>Recent posts</h2>
+    <ul class="post-list">
+      {% for post in blog.pages[:count] %}
+        {{<post_item post={post} />}}
+      {% endfor %}
+    </ul>
+    <p><a href="{{ blog.permalink }}">All posts →</a></p>
+    {% endif %}
+  {% endif %}
+{% endblock %}

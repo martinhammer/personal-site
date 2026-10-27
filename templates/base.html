@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {# The browser-tab title: "Page title · Site title", or just the site title on the home page. #}
+  <title>{% block title %}{{ config.title }}{% endblock %}</title>
+  <meta name="description" content="{% block description %}{{ config.description }}{% endblock %}">
+  <link rel="stylesheet" href="{{ get_url(path='style.css') }}">
+  {# Lets feed readers find the blog feed automatically #}
+  <link rel="alternate" type="application/atom+xml" title="{{ config.title }}" href="{{ get_url(path='atom.xml', trailing_slash=false) }}">
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <a class="site-name" href="{{ get_url(path='/') }}">{{ config.title }}</a>
+      {# Icon links from zola.toml. The SVG is pasted into the page (not linked
+         as an <img>) so the CSS can colour it to match the text. #}
+      {%- for link in config.extra.links %}
+      <a class="icon-link" href="{{ link.url }}" title="{{ link.name }}" aria-label="{{ link.name }}">
+        <span aria-hidden="true">{{ load_data(path="static/icons/" ~ link.icon ~ ".svg", format="plain") | safe }}</span>
+      </a>
+      {%- endfor %}
+    </div>
+    <nav>
+      {# Loop over the menu in zola.toml. "Blog" stays highlighted on every post and tag page too. #}
+      {%- set here = current_path if current_path is defined else "" %}
+      {%- for item in config.extra.menu %}
+        {%- if here == item.url
+              or (item.url == "/blog/" and (here is starting_with(pat="/blog/") or here is starting_with(pat="/tags/"))) %}
+          {%- set active = true %}
+        {%- else %}
+          {%- set active = false %}
+        {%- endif %}
+      <a href="{{ get_url(path=item.url, trailing_slash=true) }}"{% if active %} aria-current="page"{% endif %}>{{ item.name }}</a>
+      {%- endfor %}
+    </nav>
+  </header>
+
+  <main>
+    {# Each page template fills in this block #}
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    © {{ now() | date(format="%Y") }} {{ config.title }}
+    · <a href="{{ get_url(path='atom.xml', trailing_slash=false) }}">Feed</a>
+  </footer>
+
+  {# Click an image in the page to see it larger. Click again or press Esc to close. #}
+  <dialog id="lightbox"><img alt=""></dialog>
+  <script>
+    const box = document.getElementById("lightbox");
+    const big = box.querySelector("img");
+    document.querySelectorAll("main img").forEach(img => {
+      img.addEventListener("click", () => {
+        big.src = img.currentSrc || img.src;
+        big.alt = img.alt;
+        box.showModal();
+      });
+    });
+    box.addEventListener("click", () => box.close());
+  </script>
+</body>
+</html>
