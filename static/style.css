@@ -72,7 +72,7 @@ footer {
 }
 
 /* More space above a heading that follows text */
-:is(p, ul, ol, pre, blockquote, figure) + :is(h2, h3) { margin-top: 2.25em; }
+:is(p, ul, ol, pre, blockquote, figure, table) + :is(h2, h3) { margin-top: 2.25em; }
 
 .muted { color: var(--muted); }
 
