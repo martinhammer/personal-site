@@ -10,4 +10,4 @@ I am interested in technology (open source in particular), scuba diving, running
 
 My development projects are on [GitHub](https://github.com/martinhammer/). One of them -- Tickbuddy -- has its own [website](https://tickbuddy.app).
 
-The [blog posts](/blog/) have been restored from my long-defunct "Empty Quarter" blog.
+The old [blog posts](/blog/) have been restored from my long-defunct "Empty Quarter" blog, with one or two more recent additions.
